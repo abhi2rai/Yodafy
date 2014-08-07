@@ -49,7 +49,7 @@ public class Yoda extends Activity {
         if(android.os.Build.VERSION.SDK_INT == 19){
         	SystemBarTintManager tintManager = new SystemBarTintManager(this);
             tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintColor(Color.parseColor("#259b24"));
+            tintManager.setStatusBarTintColor(Color.parseColor("#7AA42F"));
         }
         
         View view = this.getWindow().getDecorView();
