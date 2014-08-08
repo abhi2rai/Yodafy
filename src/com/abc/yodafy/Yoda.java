@@ -62,6 +62,7 @@ public class Yoda extends Activity {
         TextView actionBarTitleView = (TextView) getWindow().findViewById(actionBarTitle);
         if(actionBarTitleView != null){
             actionBarTitleView.setTypeface(fontReg);
+            actionBarTitleView.setTextSize(25);
         }
         
         EditText input = (EditText)findViewById(R.id.inputtext);
@@ -118,14 +119,14 @@ public class Yoda extends Activity {
         	
         	if(myEditText.getText().toString().equals("")){
         		progress.hide();
-    			showToast("No text. Happens to every guy sometimes this does");
+    			showToast("Please enter some text");
         	}
         	else{
         		new RetrieveFeedTask().execute(inputString);
         	}
         }
 		else{
-			showToast("You need to be connected. Dark side I sense in you");
+			showToast("You need to be connected");
 		}
     }
     
