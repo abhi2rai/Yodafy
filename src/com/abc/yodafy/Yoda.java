@@ -47,23 +47,15 @@ public class Yoda extends Activity {
         setContentView(R.layout.activity_yoda);
         
         if(android.os.Build.VERSION.SDK_INT == 19){
-        	SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintColor(Color.parseColor("#7AA42F"));
+        	setStatusBarColor("#7AA42F");
         }
         
-        View view = this.getWindow().getDecorView();
-        view.setBackgroundColor(Color.parseColor("#7AA42F"));
+        setViewBackgroundColor(this.getWindow().getDecorView(),"#7AA42F");
         
         Typeface fontLight = Typeface.createFromAsset(getAssets(), "fonts/RobotoCondensed-Light.ttf");
         Typeface fontReg = Typeface.createFromAsset(getAssets(), "fonts/RobotoCondensed-Regular.ttf");
         
-        int actionBarTitle = Resources.getSystem().getIdentifier("action_bar_title", "id", "android");
-        TextView actionBarTitleView = (TextView) getWindow().findViewById(actionBarTitle);
-        if(actionBarTitleView != null){
-            actionBarTitleView.setTypeface(fontReg);
-            actionBarTitleView.setTextSize(25);
-        }
+        setActionBarFont(fontReg,25);
         
         EditText input = (EditText)findViewById(R.id.inputtext);
         input.setTypeface(fontLight);
@@ -73,6 +65,31 @@ public class Yoda extends Activity {
         
         Button yoda = (Button)findViewById(R.id.yoda);
         yoda.setTypeface(fontReg);
+    }
+    
+    private void setViewBackgroundColor(View view, String color){
+    	view.setBackgroundColor(Color.parseColor(color));
+    }
+    
+    private void setActionBarFont(Typeface type, int size){
+    	int actionBarTitle = Resources.getSystem().getIdentifier("action_bar_title", "id", "android");
+        TextView actionBarTitleView = (TextView) getWindow().findViewById(actionBarTitle);
+        if(actionBarTitleView != null){
+            actionBarTitleView.setTypeface(type);
+            actionBarTitleView.setTextSize(size);
+        }
+    }
+    
+    private void setStatusBarColor(String color){
+    	SystemBarTintManager tintManager = new SystemBarTintManager(this);
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setStatusBarTintColor(Color.parseColor(color));
+    }
+    
+    private void hideKeyboard(EditText myEditText){
+    	InputMethodManager imm = (InputMethodManager)getSystemService(
+      	      Context.INPUT_METHOD_SERVICE);
+      	imm.hideSoftInputFromWindow(myEditText.getWindowToken(), 0);
     }
 
     @Override
@@ -106,9 +123,7 @@ public class Yoda extends Activity {
     public void yodafy(View view){
     	if(isConnected()){  
     		EditText myEditText = (EditText) findViewById(R.id.inputtext);
-        	InputMethodManager imm = (InputMethodManager)getSystemService(
-        	      Context.INPUT_METHOD_SERVICE);
-        	imm.hideSoftInputFromWindow(myEditText.getWindowToken(), 0);
+        	hideKeyboard(myEditText);
         	progress = new ProgressDialog(this);
         	progress.setMessage("Yodafying....");
         	progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -119,6 +134,7 @@ public class Yoda extends Activity {
         	
         	if(myEditText.getText().toString().equals("")){
         		progress.hide();
+        		hideKeyboard((EditText) findViewById(R.id.inputtext));
     			showToast("Please enter some text");
         	}
         	else{
@@ -126,11 +142,12 @@ public class Yoda extends Activity {
         	}
         }
 		else{
+			hideKeyboard((EditText) findViewById(R.id.inputtext));
 			showToast("You need to be connected");
 		}
     }
     
-    public boolean isConnected(){
+    private boolean isConnected(){
     	ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
     	    NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
     	    if (networkInfo != null && networkInfo.isConnected()) 
@@ -188,6 +205,7 @@ public class Yoda extends Activity {
             } catch (Exception e) {
                 this.exception = e;
                 progress.hide();
+                hideKeyboard((EditText) findViewById(R.id.inputtext));
                 showToast("Something went wrong. May the force be with you");
                 return result;
             }
@@ -199,6 +217,7 @@ public class Yoda extends Activity {
         	mShareActionProvider.setShareIntent(createShareIntent());
         	progress.hide();
         	if(feed.equals("")){
+        		hideKeyboard((EditText) findViewById(R.id.inputtext));
         		showToast("Something went wrong. May the force be with you");
         	}
             // TODO: check this.exception 
