@@ -10,6 +10,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -129,6 +132,7 @@ public class Yoda extends Activity {
         	progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         	progress.setIndeterminate(true);
         	progress.show();
+        	progress.setCancelable(false);
         	
         	String inputString = myEditText.getText().toString();
         	
@@ -189,6 +193,13 @@ public class Yoda extends Activity {
     			HttpGet request = new HttpGet(URL + URLEncoder.encode(q[0]));
     			request.addHeader("X-Mashape-Key","vBZ1RjhxfRmshasaahoedrfb7nEfp1WuIchjsnjFtj1EseuZ6O");
     			// make GET request to the given URL
+    			
+    			HttpParams httpParameters = new BasicHttpParams();
+    			int timeoutConnection = 15000;
+    			HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
+    			int timeoutSocket = 15000;
+    			HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
+    			request.setParams(httpParameters);
     			
     			HttpResponse httpResponse = httpclient.execute(request);
 
