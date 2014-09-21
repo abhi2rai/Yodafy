@@ -215,21 +215,21 @@ public class Yoda extends Activity {
     			return result;
             } catch (Exception e) {
                 this.exception = e;
-                progress.hide();
-                hideKeyboard((EditText) findViewById(R.id.inputtext));
-                showToast("Something went wrong. May the force be with you");
+                result = "";
                 return result;
             }
         }
 
         protected void onPostExecute(String feed) {
-        	EditText output = (EditText)findViewById(R.id.outputtext);
-        	output.setText(feed);
-        	mShareActionProvider.setShareIntent(createShareIntent());
-        	progress.hide();
         	if(feed.equals("")){
+                progress.hide();
         		hideKeyboard((EditText) findViewById(R.id.inputtext));
         		showToast("Something went wrong. May the force be with you");
+        	}else{
+        		EditText output = (EditText)findViewById(R.id.outputtext);
+            	output.setText(feed);
+            	mShareActionProvider.setShareIntent(createShareIntent());
+            	progress.hide();
         	}
             // TODO: check this.exception 
             // TODO: do something with the feed

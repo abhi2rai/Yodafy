@@ -3,50 +3,63 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_gravity="center"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
     tools:context=".Yoda" >
-
-
-    <EditText
-        android:id="@+id/inputtext"
-        android:layout_width="250dp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textSize="25sp"
-        android:isScrollContainer="true"
-		android:inputType="textMultiLine"
-		android:maxLines="3"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:hint="@string/input_hint"/>
     
-    <Button android:id="@+id/yoda"
-        android:layout_width="176dp"
-		android:layout_height="60dp"
-		android:background="@drawable/selector_button"
-        android:layout_gravity="center"
-        android:textColor="#7AA42F"
-		android:textSize="30sp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="36dp"
-        android:hapticFeedbackEnabled="true"
-        android:onClick="yodafy"
-        android:text="@string/yodafy" />
-
-    <EditText
-        android:id="@+id/outputtext"
-        android:layout_width="250dp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textSize="25sp"
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-		android:isScrollContainer="true"
-		android:inputType="textMultiLine"
-		android:maxLines="5"
-        android:hint="@string/output_hint"
-        android:layout_marginTop="36dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_gravity="center"
+        android:src="@drawable/yodaheader" />
+    <LinearLayout 
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center"
+       android:orientation="vertical"
+       android:paddingLeft="10dp"
+       android:paddingRight="10dp">
+    		<EditText
+		        android:id="@+id/inputtext"
+		        android:layout_width="250dp"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"
+		        android:layout_marginBottom="16dp"
+		        android:gravity="center"
+		        android:hint="@string/input_hint"
+		        android:inputType="textMultiLine"
+		        android:isScrollContainer="true"
+		        android:maxLines="3"
+		        android:textSize="25sp" />
+
+		    <Button
+		        android:id="@+id/yoda"
+		        android:layout_width="176dp"
+		        android:layout_height="60dp"
+		        android:layout_gravity="center"
+		        android:layout_marginBottom="16dp"
+		        android:layout_marginTop="36dp"
+		        android:background="@drawable/selector_button"
+		        android:hapticFeedbackEnabled="true"
+		        android:onClick="yodafy"
+		        android:text="@string/yodafy"
+		        android:textColor="#7AA42F"
+		        android:textSize="30sp" />
+
+		    <EditText
+		        android:id="@+id/outputtext"
+		        android:layout_width="250dp"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"
+		        android:layout_marginBottom="16dp"
+		        android:layout_marginTop="36dp"
+		        android:gravity="center"
+		        android:hint="@string/output_hint"
+		        android:inputType="textMultiLine"
+		        android:isScrollContainer="true"
+		        android:maxLines="5"
+		        android:textSize="25sp" />    
+        
+    </LinearLayout>
 
 </LinearLayout>
